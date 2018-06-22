@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Display buildings in 3D</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoidHN2ZXR0YSIsImEiOiJjamdlODU0eHEyc3ZkMzFucGQ5MnR3cmpnIn0.X5xoiI6nVd5H-FO1osduIw';
+var map = new mapboxgl.Map({
+    style: 'mapbox://styles/mapbox/navigation-guidance-day-v2',
+    center: [30.315868, 59.939095],
+    zoom: 15,
+    pitch: 0,
+    bearing: 0,
+    container: 'map',
+});
+
+// var map = new mapboxgl.Map({
+//   "version": 8,
+//   container: 'map',
+//   style: 'mapbox://styles/mapbox/streets-v10',
+//   center: [30.315868, 59.939095],
+//   zoom: 15,
+//   pitch: 0,
+//   "sources": {
+// 	  "mapbox-streets": {
+// 	    "type": "vector",
+// 	    "url": "mapbox://mapbox.mapbox-streets-v6"
+// 	  }
+// 	},
+//   layers: [{
+//     "id": "road-label",
+//     "source": "mapbox-streets",
+//     "source-layer": "place_label",
+//     "type": "symbol",
+//   }],
+// });
+
+// The 'building' layer in the mapbox-streets vector source contains building-height
+// data from OpenStreetMap.
+map.on('load', function() {
+    // Insert the layer beneath any symbol layer.
+    var layers = map.getStyle().layers;
+
+    var labelLayerId;
+    for (var i = 0; i < layers.length; i++) {
+        if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
+            labelLayerId = layers[i].id;
+            break;
+        }
+    }
+
+    console.log(layers)
+
+    // map.addLayer({
+    //     'id': '3d-buildings',
+    //     'source': 'composite',
+    //     'source-layer': 'building',
+    //     'filter': ['==', 'extrude', 'true'],
+    //     'type': 'fill-extrusion',
+    //     'minzoom': 0,
+    //     'maxzoom': 20,
+    //     'paint': {
+    //         'fill-extrusion-color': '#f0f',
+
+    //         // use an 'interpolate' expression to add a smooth transition effect to the
+    //         // buildings as the user zooms in
+    //         'fill-extrusion-height': [
+    //             "interpolate", ["linear"], ["zoom"],
+    //             10, 0,
+    //             10.05, ["get", "height"]
+    //         ],
+    //         'fill-extrusion-base': [
+    //             "interpolate", ["linear"], ["zoom"],
+    //             10, 0,
+    //             10.05, ["get", "min_height"]
+    //         ],
+    //     }
+    // }, labelLayerId);
+});
+
+</script>
+
+</body>
+</html>
