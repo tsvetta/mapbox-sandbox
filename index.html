@@ -18,6 +18,7 @@
 <script>
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidHN2ZXR0YSIsImEiOiJjamdlODU0eHEyc3ZkMzFucGQ5MnR3cmpnIn0.X5xoiI6nVd5H-FO1osduIw';
+
 var map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/light-v9',
     center: [30.315868, 59.939095],
@@ -26,27 +27,6 @@ var map = new mapboxgl.Map({
     bearing: 0,
     container: 'map',
 });
-
-// var map = new mapboxgl.Map({
-//   "version": 8,
-//   container: 'map',
-//   style: 'mapbox://styles/mapbox/streets-v10',
-//   center: [30.315868, 59.939095],
-//   zoom: 15,
-//   pitch: 0,
-//   "sources": {
-// 	  "mapbox-streets": {
-// 	    "type": "vector",
-// 	    "url": "mapbox://mapbox.mapbox-streets-v6"
-// 	  }
-// 	},
-//   layers: [{
-//     "id": "road-label",
-//     "source": "mapbox-streets",
-//     "source-layer": "place_label",
-//     "type": "symbol",
-//   }],
-// });
 
 // The 'building' layer in the mapbox-streets vector source contains building-height
 // data from OpenStreetMap.
@@ -61,8 +41,6 @@ map.on('load', function() {
             break;
         }
     }
-
-    console.log(layers)
 
     map.addLayer({
         'id': '3d-buildings',
@@ -97,6 +75,15 @@ map.on('load', function() {
         }
     })
 });
+
+map.addControl(new mapboxgl.FullscreenControl());
+// Add geolocate control to the map.
+map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true
+}));
 
 </script>
 
