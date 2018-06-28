@@ -79,6 +79,8 @@ map.on('load', function() {
         });
     }
 
+    map.setPaintProperty('background', 'background-color', '#ffffff');
+
     layers.map((layer) => {
         const theLayer = layer['source-layer'];
         if (theLayer && ! theLayer.includes('building')) {
