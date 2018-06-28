@@ -9,6 +9,9 @@
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
+
+        .mapboxgl-ctrl-bottom-left { display: none; }
+        .mapboxgl-ctrl-bottom-right { display: none; }
     </style>
 </head>
 <body>
@@ -140,14 +143,14 @@ map.on('load', function() {
     })
 });
 
-map.addControl(new mapboxgl.FullscreenControl());
-// Add geolocate control to the map.
-map.addControl(new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: true
-    },
-    trackUserLocation: true
-}));
+// map.addControl(new mapboxgl.FullscreenControl());
+// // Add geolocate control to the map.
+// map.addControl(new mapboxgl.GeolocateControl({
+//     positionOptions: {
+//         enableHighAccuracy: true
+//     },
+//     trackUserLocation: true
+// }));
 
 </script>
 
