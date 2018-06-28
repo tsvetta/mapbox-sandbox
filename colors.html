@@ -35,6 +35,8 @@ map.on('load', function() {
     // Insert the layer beneath any symbol layer.
     var layers = map.getStyle().layers;
 
+    console.log(layers)
+
     var labelLayerId;
     for (var i = 0; i < layers.length; i++) {
         if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
@@ -79,7 +81,7 @@ map.on('load', function() {
 
     layers.map((layer) => {
         const theLayer = layer['source-layer'];
-        if (theLayer && theLayer.includes('label')) {
+        if (theLayer && ! theLayer.includes('building')) {
             map.removeLayer(layer.id);
         }
     })
