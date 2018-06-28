@@ -23,7 +23,7 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/light-v9',
     center: [30.315868, 59.939095],
     zoom: 15,
-    pitch: 60,
+    pitch: 0,
     bearing: 0,
     container: 'map',
 });
@@ -68,12 +68,13 @@ map.on('load', function() {
     //     }
     // }, labelLayerId);
 
-    var bins = 16;
-    var maxHeight = 200;
+    var bins = 10;
+    var maxHeight = 30;
     var binWidth = maxHeight / bins;
 
     // Divide the buildings into 16 bins based on their true height, using a layer filter.
     for (var i = 0; i < bins; i++) {
+        console.log(80 - 10 * i * 0.5);
         map.addLayer({
             'id': '3d-buildings-' + i,
             'source': 'composite',
@@ -84,7 +85,7 @@ map.on('load', function() {
             'maxzoom': 20,
             'paint': {
                 // 'fill-extrusion-color': '#aaa',
-                'fill-extrusion-color':  `hsl(${15 * i}, 100%, 50%)`,
+                'fill-extrusion-color':  `hsl(0, 0%, ${80 - 10 * i * 0.5}%)`,
 
                 // use an 'interpolate' expression to add a smooth transition effect to the
                 // buildings as the user zooms in
@@ -98,7 +99,7 @@ map.on('load', function() {
                     10, 0,
                     10.05, ["get", "min_height"]
                 ],
-                'fill-extrusion-opacity': .6
+                'fill-extrusion-opacity': 1
             }
         });
     }
