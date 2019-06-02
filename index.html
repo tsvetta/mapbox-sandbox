@@ -14,6 +14,10 @@
 <body>
 
 <div id='map'></div>
+<div style="position:absolute">
+    <div>rotate: <input id="rotate-slider" type="range" step="1" min="0" max="360" value="0" /></div>
+    <div>pitch: <input id="pitch-slider" type="range" step="1" min="0" max="60" value="60" /></div>
+</div>
 
 <script>
 
@@ -27,6 +31,16 @@ var map = new mapboxgl.Map({
     bearing: 0,
     container: 'map',
 });
+
+document.getElementById('rotate-slider').addEventListener('input', event => {
+    const bearing = Number(event.target.value)
+    map.rotateTo(bearing)
+})
+
+document.getElementById('pitch-slider').addEventListener('input', event => {
+    const pitch = Number(event.target.value)
+    map.setPitch(pitch)
+})
 
 // The 'building' layer in the mapbox-streets vector source contains building-height
 // data from OpenStreetMap.
